@@ -86,7 +86,7 @@ export async function searchYoutube(options: {
   playlist?: boolean
   limit?: number
   options?: { type: 'video' | 'channel' | 'playlist' | 'movie' }[]
-}) {
+}): Promise<YoutubeSearchResult> {
   // youtubeSearchAPI.GetListByKeyword("<keywords>",[playlist boolean],[limit number],[options JSONArray])
   // {items:[],nextPage:{nextPageToken:"xxxxxxxx",nextPageContext:{}}}
   let results = await youtubeSearchAPI.GetListByKeyword(
