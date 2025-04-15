@@ -1,6 +1,6 @@
 {
   "name": "media-search",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "commonjs",
   "description": "A lightweight package for searching images and YouTube videos. Provides simple Typescript APIs to search for images using Google Images and videos using YouTube's search API.",
   "keywords": [
