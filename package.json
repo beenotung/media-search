@@ -1,7 +1,7 @@
 {
   "name": "media-search",
   "version": "0.0.0",
-  "description": "",
+  "description": "A lightweight package for searching images and YouTube videos. Provides simple Typescript APIs to search for images using Google Images and videos using YouTube's search API.",
   "main": "dist/index.js",
   "scripts": {
     "test": "ts-node test.ts",
@@ -9,9 +9,23 @@
     "build": "rimraf dist && tsc -p . && rimraf dist/tsconfig.tsbuildinfo && rimraf dist/test.*",
     "tsc": "tsc -p ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "search",
+    "media",
+    "images",
+    "youtube",
+    "google-images",
+    "typescript",
+    "isomorphic",
+    "browser",
+    "node"
+  ],
+  "author": {
+    "name": "Beeno Tung",
+    "email": "aabbcc1241@yahoo.com.hk",
+    "url": "https://beeno-tung.surge.sh"
+  },
+  "license": "BSD-2-Clause",
   "type": "commonjs",
   "devDependencies": {
     "@types/node": "^22.14.1",
