@@ -1,6 +1,6 @@
 import { array, object, string, url } from 'cast.ts'
 
-export type BingSearchResult = {
+export type BingImageSearchResult = {
   results: {
     imageUrl: string
     sourceUrl: string
@@ -19,11 +19,11 @@ let parser = object({
   ),
 })
 
-export async function searchBing(options: {
+export async function searchBingImage(options: {
   keyword: string
   /** default: 'www' */
   region?: 'www' | 'cn'
-}): Promise<BingSearchResult> {
+}): Promise<BingImageSearchResult> {
   let region = options.region || 'www'
   let params = new URLSearchParams({ q: options.keyword })
   // e.g. `https://www.bing.com/images/vsasync?q={keyword}`
