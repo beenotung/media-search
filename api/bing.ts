@@ -1,10 +1,23 @@
+import { array, object, string, url } from 'cast.ts'
+
 export type BingSearchResult = {
   results: {
     imageUrl: string
     sourceUrl: string
+    /** e.g. 'www.example.com', without 'https://' part */
     sourceDomain: string
   }[]
 }
+
+let parser = object({
+  results: array(
+    object({
+      imageUrl: url(),
+      sourceUrl: url(),
+      sourceDomain: string(),
+    }),
+  ),
+})
 
 export async function searchBing(options: {
   keyword: string
@@ -18,5 +31,5 @@ export async function searchBing(options: {
   let url = `https://${region}.bing.com/images/vsasync?${params}`
   let res = await fetch(url)
   let json = await res.json()
-  return json
+  return parser.parse(json)
 }

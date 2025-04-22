@@ -1,3 +1,4 @@
+import { array, int, literal, object, string, url } from 'cast.ts'
 import { readFileSync } from 'fs'
 
 export type DuckDuckGoImageSearchResult = {
@@ -19,10 +20,28 @@ export type DuckDuckGoImageSearchResult = {
     thumbnail: string
     /** e.g. 'Bing' */
     source: string
-    image_token: string
-    thumbnail_token: string
+    // image_token: string
+    // thumbnail_token: string
   }[]
 }
+
+let parser = object({
+  next: string(),
+  query: string(),
+  queryEncoded: string(),
+  response_type: literal('images'),
+  results: array(
+    object({
+      image: url(),
+      width: int(),
+      height: int(),
+      url: url(),
+      title: string(),
+      thumbnail: url(),
+      source: string(),
+    }),
+  ),
+})
 
 // reference https://github.com/KshitijMhatre/duckduckgo-images-api
 export async function searchDuckDuckGoImage(options: {
@@ -51,12 +70,12 @@ export async function searchDuckDuckGoImage(options: {
   url = `https://duckduckgo.com/i.js?${params}`
   res = await fetch(url)
   let json = await res.json()
-  return json
+  return parser.parse(json)
 }
 
 export async function searchDuckDuckGoImageNextPage(options: {
   next: DuckDuckGoImageSearchResult['next']
-}) {
+}): Promise<DuckDuckGoImageSearchResult> {
   let url = options.next
   if (url.startsWith('i.js?')) {
     url = `https://duckduckgo.com/${url}`
@@ -66,7 +85,7 @@ export async function searchDuckDuckGoImageNextPage(options: {
   }
   let res = await fetch(url)
   let json = await res.json()
-  return json
+  return parser.parse(json)
 }
 
 function parseToken(html: string) {

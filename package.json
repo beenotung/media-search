@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "async-g-i-s": "^1.5.5",
+    "cast.ts": "^1.17.3",
     "youtube-search-api": "^1.2.2"
   },
   "devDependencies": {

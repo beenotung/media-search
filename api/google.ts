@@ -1,4 +1,5 @@
 import gis from 'async-g-i-s'
+import { array, int, object, url } from 'cast.ts'
 
 export type ImageSearchResult = {
   /** e.g. 'https://images.squarespace-cdn.com/content/v1/607f89e638219e13eee71b1e/1684821560422-SD5V37BAG28BURTLIXUQ/michael-sum-LEpfefQf4rU-unsplash.jpg' */
@@ -9,9 +10,17 @@ export type ImageSearchResult = {
   width: number
 }[]
 
+let parser = array(
+  object({
+    url: url(),
+    height: int(),
+    width: int(),
+  }),
+)
+
 export async function searchImage(options: {
   keyword: string
 }): Promise<ImageSearchResult> {
   let results = await gis(options.keyword)
-  return results
+  return parser.parse(results)
 }
