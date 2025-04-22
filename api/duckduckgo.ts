@@ -27,6 +27,7 @@ export type DuckDuckGoImageSearchResult = {
 // reference https://github.com/KshitijMhatre/duckduckgo-images-api
 export async function searchDuckDuckGoImage(options: {
   keyword: string
+  // TODO test if it is starting from 1 or zero
   /** starting from 1, default: `1` */
   page?: number
 }): Promise<DuckDuckGoImageSearchResult> {
@@ -49,6 +50,21 @@ export async function searchDuckDuckGoImage(options: {
   // e.g. `https://duckduckgo.com/i.js?o=json&q={keyword}&l=us-en&vqd={token}&p={page}`
   url = `https://duckduckgo.com/i.js?${params}`
   res = await fetch(url)
+  let json = await res.json()
+  return json
+}
+
+export async function searchDuckDuckGoImageNextPage(options: {
+  next: DuckDuckGoImageSearchResult['next']
+}) {
+  let url = options.next
+  if (url.startsWith('i.js?')) {
+    url = `https://duckduckgo.com/${url}`
+  }
+  if (!url.startsWith('https://')) {
+    throw new Error(`invalid url: "${url}" for next page`)
+  }
+  let res = await fetch(url)
   let json = await res.json()
   return json
 }
