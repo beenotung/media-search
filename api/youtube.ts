@@ -82,7 +82,7 @@ export async function searchYoutube(options: {
   return results
 }
 
-export async function nextPage(options: {
+export async function searchYoutubeNextPage(options: {
   nextPage: YoutubeSearchResult['nextPage']
   playlist?: boolean
   limit?: number
